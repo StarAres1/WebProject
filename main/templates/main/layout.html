@@ -33,7 +33,17 @@
 
 
       <div class="menu_profile">
-        <a href="{%url 'author'%}"><img src="{%static 'main/img/profile.jpg'%}" alt="Where picture" class="profile"></a>        
+        User {{user}}
+        <br>
+        {%if user.is_authenticated%}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Выйти</button>
+        </form>
+        {%else%}
+        <a href="{%url 'login'%}">Войти</a>
+        {%endif%}
+        <a href="{%url 'login'%}"><img src="{%static 'main/img/profile.jpg'%}" alt="Where picture" class="profile"></a>        
       </div>
 
     </nav>
