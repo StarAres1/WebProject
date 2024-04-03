@@ -1,17 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 
 from author.forms import RegisterForm
 from django.views.generic.edit import FormView
+from django.views import View
+from author.forms import UserCreationForm
 
 def auth(request):  
   form = RegisterForm()
   return render(request, 'registration/login.html')
 
-class RegisterView(FormView):
-  form_class = RegisterForm
+class RegisterView(View):
   template_name = 'registration/forma2.html'
-  success_url = '/'
-  def form_valid(self, form):
-    form.save()
-    return super().form_valid(form)
+
+  def get(self, request):
+    context = {
+      'form': RegisterForm()
+    }
+    return render(request, self.template_name, context)
+
+  def post(self, request):
+    form = RegisterForm(request.POST)
+
+    if form.is_valid():
+      form.save()
+      username = form.cleaned_data.get('username')
+      password = form.cleaned_data.get('password1')
+      user = authenticate(username=username, password=password)
+      login(request, user)
+      return redirect("home")
+    else:
+      context = {
+        'form': form
+      }
+      return render(request, self.template_name, context)
   

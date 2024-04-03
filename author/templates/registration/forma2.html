@@ -13,12 +13,12 @@
         {%csrf_token%}
         <h1>Регистрация</h1>
         <div>
-          <input type="text" name="nameIn" value="" placeholder="Имя">
+          <input type="text" name="first_name" value="" placeholder="Имя">
           <p id="one">Недопустимые символы</p>
         </div>
 
         <div>
-          <input type="text" name="surename" value="" placeholder="Фамилия">
+          <input type="text" name="last_name" value="" placeholder="Фамилия">
           <p id="two">Недопустимые символы</p>
         </div>
 
@@ -39,8 +39,10 @@
             <li id="p2">Должна быть заглавная буква</li>
             <li id="p3">Должная быть цифра</li>
           </ul>
+          <input type="password" name="password2" value="" placeholder="Повторите пароль">
+          <p>g</p>
         </div>
-        <input type="password" name="password2" value="" placeholder="Повторите пароль">
+
 
         {{form.errors}}
 
