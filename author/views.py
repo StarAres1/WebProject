@@ -4,6 +4,7 @@ from author.forms import RegisterForm
 from django.views.generic.edit import FormView
 
 def auth(request):  
+  form = RegisterForm()
   return render(request, 'registration/login.html')
 
 class RegisterView(FormView):
