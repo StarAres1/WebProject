@@ -1,0 +1,47 @@
+{% extends 'main/layout.html' %}
+
+{% block content %}      
+<div class="annotation">
+  <div>
+    <img src="{{object.image.url}}" alt="Not found" class="photo">
+  </div>
+
+  <div class="">
+    <h1>{{object.title}}</h1>
+    <p>{{object.description}}</p>
+  </div>
+
+</div>
+  <iframe width="560" height="315" src="{{object.video}}" frameborder="0" allowfullscreen></iframe>
+<div>
+
+  <h2>Игры</h2>
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+
+  <h2>Комиксы</h2>
+  <ul>
+    <li>  fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+
+  <h2>Фильмы</h2>
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+
+</div>
+{% endblock%}
+

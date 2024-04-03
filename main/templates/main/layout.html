@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">    
+    <link href="https://fonts.googleapis.com/css?family=Kode+Mono:wght@700&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="{%static 'main/css/styles.css'%}">
+    <title>Your Universes</title>
+  </head>
+  <body>
+    {% block header %}
+    {% endblock %}
+    <nav>
+      <div>
+        <a href="{% url 'home' %}">
+          <div class="menu_button">
+            <p>Главная</p>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <a href="/new">
+          <div class="menu_button">
+            <p>Новинки</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="menu_button">
+        <p>Фильтры</p>
+      </div>
+
+
+      <div class="menu_profile">
+        <a href="{%url 'author'%}"><img src="{%static 'main/img/profile.jpg'%}" alt="Where picture" class="profile"></a>        
+      </div>
+
+    </nav>
+
+
+    {% block content %}      
+    {% endblock%}
+
+    <footer>
+      <p>Все права защищены <br> Свои контакты не дам</p>
+    </footer>
+
+  </body>
+</html>

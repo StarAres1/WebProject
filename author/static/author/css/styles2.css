@@ -1,0 +1,62 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 0px;
+}
+
+div{
+  margin: 15px;
+  margin-bottom: 0px;
+}
+
+.forma{
+  display: flex;
+  align-content: center;
+  border: 2px solid;
+  border-color: black;
+  border-radius: 15px;
+  padding: 15px 15px 15px 15px;
+  text-align: center;
+
+}
+
+input{
+  font-size: 25px;
+  outline: none;
+  border: 3px black solid;
+  border-radius: 5px;
+}
+
+button{
+  margin: 25px;
+  font-size: 22px;
+  border-radius: 10px;
+}
+
+a:visited{
+  color: blue;
+}
+
+span{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+p{
+  visibility: hidden;
+  color: red;
+  text-align: left;
+  font-size: 15px;
+}
+
+ul li{
+  color: grey;
+  text-align: left;
+  font-weight: bold;
+}
+
+h3{
+  color: red;
+  font-size: 15px;
+}

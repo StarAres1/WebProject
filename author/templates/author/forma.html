@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{%static 'author/css/styles3.css'%}">
+    <title>auto</title>
+  </head>
+  <body>
+
+    <div class="forma">
+      <form action="#" method="post" enctype="multipart/form-data" name="main">
+        <h1>Авторизация</h1>
+        <div>
+          <input type="text" name="username" value="" placeholder="Никнейм" required>
+          <p>s</p>
+        </div>
+
+        <div>
+          <input type="password" name="password" value="" placeholder="Пароль" required>
+          <p>d</p>
+        </div>
+        <a href="..">
+          <button type="button" name="button" id="b" disabled><span>Зарегистрироваться</span></button>
+        </a>
+
+<br>
+        <a href="{%url 'reg'%}">Создать аккаунт</a>
+      </form>
+      <script src="{%static 'author/js/script1.js'%}"></script>
+
+    </div>    
+
+  </body>
+</html>
