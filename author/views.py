@@ -9,7 +9,7 @@ def auth(request):
 class RegisterView(FormView):
   form_class = RegisterForm
   template_name = 'registration/forma2.html'
-
+  success_url = '/'
   def form_valid(self, form):
     form.save()
     return super().form_valid(form)

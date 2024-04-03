@@ -42,9 +42,9 @@
         </div>
         <input type="password" name="password2" value="" placeholder="Повторите пароль">
 
-        <a href="{%url 'home'%}">
-          <button type="submit" name="button" id="b"><span>Зарегистрироваться</span></button>
-        </a>        
+        {{form.errors}}
+
+        <button type="submit" name="button" id="b"><span>Зарегистрироваться</span></button> 
         <br>
         <a href="{%url 'login'%}">Войти</a>
         <script src="{%static 'author/js/script2.js'%}"></script>
