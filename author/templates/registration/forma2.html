@@ -12,6 +12,7 @@
       <form method="post" name="main">
         {%csrf_token%}
         <h1>Регистрация</h1>
+        {{form.errors}}
         <div>
           <input type="text" name="first_name" value="" placeholder="Имя">
           <p id="one">Недопустимые символы</p>
@@ -38,19 +39,17 @@
             <li id="p1">Должна быть строчная буква</li>
             <li id="p2">Должна быть заглавная буква</li>
             <li id="p3">Должная быть цифра</li>
+            <li id="p4">Должно быть минимум 8 символов</li>
           </ul>
           <input type="password" name="password2" value="" placeholder="Повторите пароль">
-          <p>g</p>
+          <p id="compare">Пароли должны совпадать</p>
         </div>
-
-
-        {{form.errors}}
 
         <button type="submit" name="button" id="b"><span>Зарегистрироваться</span></button> 
         <br>
         <a href="{%url 'login'%}">Войти</a>
         <script src="{%static 'author/js/script2.js'%}"></script>
-
+        
       </form>
     </div>
 

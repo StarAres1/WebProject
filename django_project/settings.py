@@ -122,3 +122,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 AUTH_USER_MODEL = 'author.User'
+AUTH_PASSWORD_HASHERS = [    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+]

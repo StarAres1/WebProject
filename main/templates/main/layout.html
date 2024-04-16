@@ -3,7 +3,9 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">    
-    <link href="https://fonts.googleapis.com/css?family=Kode+Mono:wght@700&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Sedan:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{%static 'main/css/styles.css'%}">
     <title>Your Universes</title>
   </head>
@@ -11,7 +13,7 @@
     {% block header %}
     {% endblock %}
     <nav>
-      <div>
+      <div class="menu_button">
         <a href="{% url 'home' %}">
           <div class="menu_button">
             <p>Главная</p>
@@ -19,7 +21,7 @@
         </a>
       </div>
 
-      <div>
+      <div class="menu_button">
         <a href="/new">
           <div class="menu_button">
             <p>Новинки</p>
@@ -28,24 +30,38 @@
       </div>
 
       <div class="menu_button">
-        <p>Фильтры</p>
+        <p>О нас</p>
       </div>
+      
+           
+      <div class="menu_button" id="name">
+      {%if user.is_authenticated%}   
+        <p>Приветствуем, {{user}}!</p>      
+      {%endif%}       
 
+      </div>      
 
+      {%if user.is_authenticated%}
+      <div class="menu_button">
+      <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Выйти</button>
+      </form>
+      </div>
+      {%else%}
+      <div class="menu_button">
+        <a href="{%url 'login'%}">
+          <div class="menu_button">
+            <p>Войти</p>
+          </div>
+        </a>
+      </div>        
+      {%endif%}
+      
+      
       <div class="menu_profile">
-        User {{user}}
-        <br>
-        {%if user.is_authenticated%}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Выйти</button>
-        </form>
-        {%else%}
-        <a href="{%url 'login'%}">Войти</a>
-        {%endif%}
-        <a href="{%url 'login'%}"><img src="{%static 'main/img/profile.jpg'%}" alt="Where picture" class="profile"></a>        
+        <a href="#"><img src="{%static 'main/img/profile.jpg'%}" alt="Where picture" class="profile"></a>        
       </div>
-
     </nav>
 
 
@@ -53,7 +69,8 @@
     {% endblock%}
 
     <footer>
-      <p>Все права защищены <br> Свои контакты не дам</p>
+      <p>Проект подготовили студенты МИЭТ группы ПИН-24: <br><br>Тетерин Андрей
+      <br>Кондауров Савелий</p>
     </footer>
 
   </body>

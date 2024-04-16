@@ -1,6 +1,7 @@
-var nameIn = document.forms.main.elements.nameIn;
-var surename = document.forms.main.elements.surename;
-var password = document.forms.main.elements.password;
+var first_name = document.forms.main.elements.first_name;
+var last_name = document.forms.main.elements.last_name;
+var password1 = document.forms.main.elements.password1;
+var password2 = document.forms.main.elements.password2;
 var email = document.forms.main.elements.email;
 var username = document.forms.main.elements.username;
 var patternName = /[А-Я]{1}[а-я]*$/
@@ -13,21 +14,22 @@ var button = document.getElementById("b")
 var pattern1 = /[A-Z]/
 var pattern2 = /[a-z]/
 var pattern3 = /[0-9]/
-var patternPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+/
+var patternPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/
+var patternLen = /\w{8,}/
 
-nameIn.addEventListener("input", function(e){
-nameIn.value = nameIn.value.charAt(0).toUpperCase() + nameIn.value.slice(1);
-  if (patternName.test(nameIn.value)) {
+first_name.addEventListener("input", function(e){
+  first_name.value = first_name.value.charAt(0).toUpperCase() + first_name.value.slice(1);
+  if (patternName.test(first_name.value)) {
     document.getElementById('one').style.visibility = "hidden";
-    nameIn.style.border = "3px solid blue";
-    nameIn.style.boxShadow = "3px 3px 7px cyan";
+      first_name.style.border = "3px solid blue";
+      first_name.style.boxShadow = "3px 3px 7px cyan";
     mas[0] = true;
   }
   else {
-    nameIn.style.border = "3px solid red";
-    nameIn.style.boxShadow = "3px 3px 7px red";
+      first_name.style.border = "3px solid red";
+      first_name.style.boxShadow = "3px 3px 7px red";
     mas[0] = false;
-    if(nameIn.value != ""){
+    if(first_name.value != ""){
       document.getElementById('one').style.visibility = "visible";
     }
     else {
@@ -36,43 +38,43 @@ nameIn.value = nameIn.value.charAt(0).toUpperCase() + nameIn.value.slice(1);
   }
 });
 
-nameIn.addEventListener("blur", function(e){
-  if (patternName.test(nameIn.value)) {
-    nameIn.style.border = "3px solid green";
-    nameIn.style.boxShadow = "none";
+  first_name.addEventListener("blur", function(e){
+  if (patternName.test(first_name.value)) {
+      first_name.style.border = "3px solid green";
+      first_name.style.boxShadow = "none";
   }
   else {
-    nameIn.style.border = "3px solid red";
-    nameIn.style.boxShadow = "none";
+      first_name.style.border = "3px solid red";
+      first_name.style.boxShadow = "none";
   }
 });
 
-nameIn.addEventListener("focus", function(e){
-  if(patternName.test(nameIn.value) || nameIn.value == ""){
-    nameIn.style.border = "3px solid blue";
-    nameIn.style.boxShadow = "3px 3px 7px cyan";
+  first_name.addEventListener("focus", function(e){
+  if(patternName.test(first_name.value) || first_name.value == ""){
+      first_name.style.border = "3px solid blue";
+      first_name.style.boxShadow = "3px 3px 7px cyan";
   }
   else{
-    nameIn.style.border = "3px solid red";
-    nameIn.style.boxShadow = "3px 3px 7px red";
+      first_name.style.border = "3px solid red";
+      first_name.style.boxShadow = "3px 3px 7px red";
   }
 });
 
 
 
-surename.addEventListener("input", function(e){
-surename.value = surename.value.charAt(0).toUpperCase() + surename.value.slice(1);
-  if (patternName.test(surename.value)) {
+last_name.addEventListener("input", function(e){
+last_name.value = last_name.value.charAt(0).toUpperCase() + last_name.value.slice(1);
+  if (patternName.test(last_name.value)) {
     document.getElementById('two').style.visibility = "hidden";
-    surename.style.border = "3px solid blue";
-    surename.style.boxShadow = "3px 3px 7px cyan";
+    last_name.style.border = "3px solid blue";
+    last_name.style.boxShadow = "3px 3px 7px cyan";
     mas[1] = true;
   }
   else {
-    surename.style.border = "3px solid red";
-    surename.style.boxShadow = "3px 3px 7px red";
+    last_name.style.border = "3px solid red";
+    last_name.style.boxShadow = "3px 3px 7px red";
     mas[1] = false;
-    if(surename.value != ""){
+    if(last_name.value != ""){
       document.getElementById('two').style.visibility = "visible";
     }
     else{
@@ -81,32 +83,31 @@ surename.value = surename.value.charAt(0).toUpperCase() + surename.value.slice(1
   }
 });
 
-surename.addEventListener("blur", function(e){
-  if (patternName.test(surename.value)) {
-    surename.style.border = "3px solid green";
-    surename.style.boxShadow = "none";
+last_name.addEventListener("blur", function(e){
+  if (patternName.test(last_name.value)) {
+    last_name.style.border = "3px solid green";
+    last_name.style.boxShadow = "none";
   }
   else {
-    surename.style.border = "3px solid red";
-    surename.style.boxShadow = "none";
+    last_name.style.border = "3px solid red";
+    last_name.style.boxShadow = "none";
   }
 });
 
-surename.addEventListener("focus", function(e){
-  if(patternName.test(surename.value) || surename.value == ""){
-    surename.style.border = "3px solid blue";
-    surename.style.boxShadow = "3px 3px 7px cyan";
+last_name.addEventListener("focus", function(e){
+  if(patternName.test(last_name.value) || last_name.value == ""){
+    last_name.style.border = "3px solid blue";
+    last_name.style.boxShadow = "3px 3px 7px cyan";
   }
   else{
-    surename.style.border = "3px solid red";
-    surename.style.boxShadow = "3px 3px 7px red";
+    last_name.style.border = "3px solid red";
+    last_name.style.boxShadow = "3px 3px 7px red";
   }
 });
 
 
 email.addEventListener("input", function(e){
-  if (patternEmail.test(email.value)) {
-    document.getElementById('two').style.visibility = "hidden";
+  if (patternEmail.test(email.value)) {    
     email.style.border = "3px solid green";
     email.style.boxShadow = "3px 3px 7px green";
     mas[2] = true;
@@ -149,60 +150,63 @@ email.addEventListener("focus", function(e){
 
 
 
-password.addEventListener("input", function(e){
-  if(pattern1.test(password.value)){
+password1.addEventListener("input", function(e){
+  if(pattern1.test(password1.value)){
     document.getElementById('p1').style.color = "green";
     document.getElementById('p1').style.fontStyle = "bold";
   }
   else{
     document.getElementById('p1').style.color = "grey";
   }
-  if(pattern2.test(password.value)){
+  if(pattern2.test(password1.value)){
     document.getElementById('p2').style.color = "green";
   }
   else{
     document.getElementById('p2').style.color = "grey";
   }
-  if(pattern3.test(password.value)){
+  if(pattern3.test(password1.value)){
     document.getElementById('p3').style.color = "green";
   }
   else{
     document.getElementById('p3').style.color = "grey";
   }
-  if (patternPassword.test(password.value)) {
-    password.style.border = "3px solid green";
-    password.style.boxShadow = "3px 3px 7px green";
+  if (patternLen.test(password1.value)) {
+    document.getElementById('p4').style.color = "green";
+    password1.style.border = "3px solid green";
+    password1.style.boxShadow = "3px 3px 7px green";
     mas[3] = true;
   }
   else {
-    password.style.border = "3px solid red";
-    password.style.boxShadow = "3px 3px 7px red";
+    document.getElementById('p4').style.color = "grey";
+    password1.style.border = "3px solid red";
+    password1.style.boxShadow = "3px 3px 7px red";
     mas[3] = false;
   }
 });
 
-password.addEventListener("blur", function(e){
-  if (patternPassword.test(password.value)) {
-    password.style.border = "3px solid green";
-    password.style.boxShadow = "none";
+password1.addEventListener("blur", function(e){
+  if (patternPassword.test(password1.value)) {
+    password1.style.border = "3px solid green";
+    password1.style.boxShadow = "none";
   }
   else {
-    password.style.border = "3px solid red";
-    password.style.boxShadow = "none";
+    password1.style.border = "3px solid red";
+    password1.style.boxShadow = "none";
   }
 });
 
 
-password.addEventListener("focus", function(e){
-  if (patternPassword.test(password.value)) {
-    password.style.border = "3px solid green";
-    password.style.boxShadow = "3px 3px 7px green";
+password1.addEventListener("focus", function(e){
+  if (patternPassword.test(password1.value)) {
+    password1.style.border = "3px solid green";
+    password1.style.boxShadow = "3px 3px 7px green";
   }
   else {
-    password.style.border = "3px solid red";
-    password.style.boxShadow = "3px 3px 7px red";
+    password1.style.border = "3px solid red";
+    password1.style.boxShadow = "3px 3px 7px red";
   }
 });
+
 
 username.addEventListener("input", function(e){
   if (pattern.test(username.value)) {
