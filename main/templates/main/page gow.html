@@ -13,10 +13,12 @@
   </div>
 
 </div>
+<div class="title"><h2>Трейлер</h2></div>
+<div class="block-iframe">
   <iframe width="560" height="315" src="{{object.video}}" frameborder="0" allowfullscreen></iframe>
-<div>
-
-  <h2>Игры</h2>
+</div>
+<div class="title"><h2>Игры</h2></div>
+<div>  
   <ul>
     <li>fksdfksd</li>
     <li>dfsdfdsf</li>
@@ -24,17 +26,9 @@
     <li>sdfakfasfkmskfk</li>
   </ul>
   <br>
-
-  <h2>Комиксы</h2>
-  <ul>
-    <li>  fksdfksd</li>
-    <li>dfsdfdsf</li>
-    <li>fsdfsdflskfl</li>
-    <li>sdfakfasfkmskfk</li>
-  </ul>
-  <br>
-
-  <h2>Фильмы</h2>
+</div>
+<div class="title"><h2>Книги и комиксы</h2></div>
+<div>  
   <ul>
     <li>fksdfksd</li>
     <li>dfsdfdsf</li>
@@ -42,11 +36,38 @@
     <li>sdfakfasfkmskfk</li>
   </ul>
   <br>
-
+</div>
+<div class="title"><h2>Фильмы</h2></div>
+<div>  
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
 </div>
 {% endblock%}
 
 {% block comments%}
+<div>
+  {%if user.is_authenticated%}
+    <form class="form_comments" method="post" name="main">
+      {%csrf_token%}     
+      <br>
+      <input type="hidden" name="author" id="name" value="{{user}}">
+      <input type="hidden" name="cat" value="{{ object.id }}">
+      <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий"></textarea>
+      <br>
+      <button type="submit">Оставить отзыв</button>
+      {{error}}  
+    </form>
+  {%else%}
+    <span>Чтобы оставлять отзывы необходимо авторизоваться</span>
+  {%endif%}  
+  
+</div>
+<div>
 {% for element in comments%}
   <br>
   <br>
@@ -54,21 +75,7 @@
   {{element.author}}
   {{element.time}}
 {%endfor%}
-
-{%if user.is_authenticated%}
-  <form class="form_comments" method="post" name="main">
-    {%csrf_token%}     
-    <br>
-    <input type="hidden" name="author" id="name" value="{{user}}">
-    <input type="hidden" name="cat" value="{{ object.id }}">
-    <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий"></textarea>
-    <br>
-    <button type="submit">Оставить отзыв</button>
-    {{error}}  
-  </form>
-{%else%}
-  <span>Чтобы оставлять отзывы необходимо авторизоваться</span>
-{%endif%}
+</div>
   
 {% endblock%}
 

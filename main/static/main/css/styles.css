@@ -32,13 +32,6 @@ margin-top: 15px;
 color: white;
 }
 
-h2{
-  font-size: 35px;
-  text-align: center;
-  font-family: "Arial", sans-serif;
-  color: black;
-}
-
 header {
   padding: 30px 15px 30px 15px;
   background-image: url('../img/three.png');
@@ -107,6 +100,7 @@ h3{
 .line{
   background: #c7604c;  
   margin-top: 5px;
+  text-align: center;
 }
 
 
@@ -157,7 +151,7 @@ ul li{
   margin: 15px;
 }
 
-.line h2{
+h2{
   color: white;
   font-family: "Philosopher", sans-serif;
   font-weight: 400;
@@ -207,3 +201,28 @@ button::visited{
   background: yellow;
   padding: 15px;
 }
+
+.field1{
+  background: #503c42;
+  padding-top: 10px;
+}
+
+iframe{
+  width: 870px;
+  height: 490px;
+}
+
+.block-iframe{
+  display: flex;
+  justify-content: center;
+}
+
+.title{
+  border-top: 4px solid white;
+  border-bottom: 4px solid white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+}
+
