@@ -64,9 +64,14 @@
       </div>
     </nav>
 
+    <div class="field">
+      {% block content %}      
+      {% endblock%}
 
-    {% block content %}      
-    {% endblock%}
+      {% block comments%}
+      {% endblock%}      
+    </div> 
+
 
     <footer>
       <p>Проект подготовили студенты МИЭТ группы ПИН-24: <br><br>Тетерин Андрей

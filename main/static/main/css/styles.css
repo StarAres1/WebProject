@@ -190,3 +190,20 @@ button{
 button::visited{
   color: white;
 }
+
+.line_form{
+  color: black;
+  background-color: red;
+}
+
+.form_comments button{
+  color: black;
+  border: 2px solid black;
+  background: white;
+  padding: 5px;
+}
+
+.form_comments{
+  background: yellow;
+  padding: 15px;
+}

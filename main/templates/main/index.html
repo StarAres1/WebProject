@@ -7,24 +7,23 @@
 {% endblock %}
 
 {% block content %}
-  <div class="field">
-    {% for i in 'x'|rjust:10 %}
-      {% for el in cards %}
+  {% for i in 'x'|rjust:10 %}
+    {% for el in cards %}
 
-      <div>
-        <a href="/description/{{el.id}}">
-          <div class="card">
-            <img class="card_image" src="{{el.image.url}}" alt="Not found:(">
-            <div class="line">
-              <h2>{{el.title}}</h2>
-              <h3>{{el.id}} объектов</h3>
-            </div>
+    <div>
+      <a href="/description/{{el.id}}">
+        <div class="card">
+          <img class="card_image" src="{{el.image.url}}" alt="Not found:(">
+          <div class="line">
+            <h2>{{el.title}}</h2>
+            <h3>{{el.id}} объектов</h3>
           </div>
-        </a>
-      </div>
-
-      {%endfor%}    
-    {% endfor %}
+        </div>
+      </a>
     </div>
+
+    {%endfor%}    
+  {% endfor %}     
+ 
 {% endblock%}
 
