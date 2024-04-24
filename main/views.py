@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . models import Cards, Comment
 from .forms import CommentForm
+from django.http import JsonResponse
 
 def index(request):
   cards = Cards.objects.all()
@@ -31,3 +32,24 @@ def description(request, object_id):
 
 def new(request):
   return render(request, 'main/new.html')
+
+
+def add_comment(request):
+  form = CommentForm()
+  if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+      form = CommentForm(request.POST)
+      if form.is_valid():
+          text = form.cleaned_data['text']
+          author = form.cleaned_data['author']            
+        
+          form.save()
+          return JsonResponse({
+            "text": text,
+            "author": author,
+            }, status=200)
+      else:
+          errors = form.errors
+          print(errors)
+          return JsonResponse(errors, status=400)   
+  
+  return render(request, "../", {"form": form})

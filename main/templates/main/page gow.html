@@ -15,7 +15,7 @@
 </div>
 <div class="title"><h2>Трейлер</h2></div>
 <div class="block-iframe">
-  <iframe width="560" height="315" src="{{object.video}}" frameborder="0" allowfullscreen></iframe>
+
 </div>
 <div class="title"><h2>Игры</h2></div>
 <div>  
@@ -52,28 +52,58 @@
 {% block comments%}
 <div>
   {%if user.is_authenticated%}
-    <form class="form_comments" method="post" name="main">
+    <form class="form_comments" method="post" name="main" id="for_comments">
       {%csrf_token%}     
       <br>
       <input type="hidden" name="author" id="name" value="{{user}}">
       <input type="hidden" name="cat" value="{{ object.id }}">
-      <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий"></textarea>
+      <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий" id="text_ar"></textarea>
       <br>
       <button type="submit">Оставить отзыв</button>
       {{error}}  
     </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {            
+            // отслеживаем событие отправки формы
+            $('#for_comments').submit(function () {
+                // создаем AJAX-вызов
+                $.ajax({                    
+                    data: $(this).serialize(), // получаем данные формы
+                    type: $(this).attr('method'), // GET или POST
+                    url: "{% url 'add_comment' %}",                    
+                    // если успешно, то
+                    success: function (response) {
+                      
+                      var newDiv = $('<div></div>').addClass("comment");
+                      newDiv.text(response.text + ' ' + response.author);
+                      $('#sect').prepend(newDiv);
+                      $('#text_ar').val("Отправлено");
+                    },
+                    // если ошибка, то
+                    error: function (response) {                        
+                        // предупредим об ошибке
+                        alert(response.responseJSON.errors);
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
+  
   {%else%}
     <span>Чтобы оставлять отзывы необходимо авторизоваться</span>
   {%endif%}  
   
 </div>
-<div>
-{% for element in comments%}
-  <br>
-  <br>
-  {{element.text}}
-  {{element.author}}
-  {{element.time}}
+<div class="section_comments" id="sect">
+{% for element in comments%}  
+  <div class="comment">
+    {{element.text}}
+    {{element.author}}
+    {{element.time}}
+  </div>
 {%endfor%}
 </div>
   

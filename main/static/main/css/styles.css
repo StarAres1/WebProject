@@ -205,6 +205,7 @@ button::visited{
 .field1{
   background: #503c42;
   padding-top: 10px;
+  height: auto;
 }
 
 iframe{
@@ -226,3 +227,13 @@ iframe{
   padding: 10px;
 }
 
+.section_comments{
+  height: auto;
+}
+
+.comment{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
