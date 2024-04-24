@@ -77,8 +77,10 @@
                       
                       var newDiv = $('<div></div>').addClass("comment");
                       newDiv.text(response.text + ' ' + response.author);
+                      var brr = $('<br>');                      
                       $('#sect').prepend(newDiv);
-                      $('#text_ar').val("Отправлено");
+                      $('#sect').prepend(brr);
+                      $('#text_ar').val("");
                     },
                     // если ошибка, то
                     error: function (response) {                        
@@ -98,7 +100,8 @@
   
 </div>
 <div class="section_comments" id="sect">
-{% for element in comments%}  
+{% for element in comments%} 
+  <br>
   <div class="comment">
     {{element.text}}
     {{element.author}}
