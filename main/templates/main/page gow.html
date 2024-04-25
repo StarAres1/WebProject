@@ -78,7 +78,7 @@
                       var newDiv = $('<div></div>').addClass("comment");
                       newDiv.text(response.text + ' ' + response.author);
                       var block_time = $('<div></div>').addClass("time");
-                      block_time.text("Только что");
+                      block_time.text(response.time);
                       newDiv.append(block_time);
                       var brr = $('<br>');                      
                       $('#sect').prepend(newDiv);
@@ -138,11 +138,19 @@
               type: 'POST',
               data: {'time': time, 'id_cat': document.getElementById("cat").value},
 
-              success: function (response) {
-                  console.log(response.mas);
-              }
-          });
-      }, 10000);    
+              success: function (response) {                  
+                  if (response.message == "1"){
+                    const button = document.getElementById("update");
+                    button.textContent = "Посмотреть новый комментарии";
+                    button.disabled = false;
+                    const comments = JSON.parse(response.mas);
+
+                    comments.forEach(comment => {
+                      console.log(comment.fields.author);
+                    });
+                  }
+              }});
+      }, 10000);
     </script>
   
   {%else%}
@@ -150,6 +158,8 @@
   {%endif%}  
   
 </div>
+
+<button id="update" disabled>Новых комментариев нет</button>
 <div class="section_comments" id="sect">
 {% for element in comments%} 
   <br>
