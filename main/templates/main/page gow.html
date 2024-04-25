@@ -15,7 +15,7 @@
 </div>
 <div class="title"><h2>Трейлер</h2></div>
 <div class="block-iframe">
-  <iframe width="560" height="315" src="{{object.video}}" frameborder="0" allowfullscreen></iframe>
+
 </div>
 <div class="title"><h2>Игры</h2></div>
 <div>  
@@ -56,7 +56,7 @@
       {%csrf_token%}     
       <br>
       <input type="hidden" name="author" id="name" value="{{user}}">
-      <input type="hidden" name="cat" value="{{ object.id }}">
+      <input type="hidden" name="cat" id ="cat" value="{{ object.id }}">
       <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий" id="text_ar"></textarea>
       <br>
       <button type="submit">Оставить отзыв</button>
@@ -77,6 +77,9 @@
                       
                       var newDiv = $('<div></div>').addClass("comment");
                       newDiv.text(response.text + ' ' + response.author);
+                      var block_time = $('<div></div>').addClass("time");
+                      block_time.text("Только что");
+                      newDiv.append(block_time);
                       var brr = $('<br>');                      
                       $('#sect').prepend(newDiv);
                       $('#sect').prepend(brr);
@@ -93,6 +96,54 @@
             });
         })
     </script>
+    <script>
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      function csrfSafeMethod(method) {
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+              }
+          }
+      });
+      
+      setInterval(function () {
+        const times = document.querySelectorAll('.section_comments .comment .time');
+        
+        var time = "";
+        for (const el of times) {
+          if (el.textContent != "Только что"){
+            var time = el.textContent;
+            break;
+          };
+          
+        }
+          $.ajax({
+              url: "{%url 'get_new_comments'%}",
+              type: 'POST',
+              data: {'time': time, 'id_cat': document.getElementById("cat").value},
+
+              success: function (response) {
+                  console.log(response.mas);
+              }
+          });
+      }, 10000);    
+    </script>
   
   {%else%}
     <span>Чтобы оставлять отзывы необходимо авторизоваться</span>
@@ -105,7 +156,9 @@
   <div class="comment">
     {{element.text}}
     {{element.author}}
-    {{element.time}}
+    <div class="time">
+      {{element.time}}
+    </div>    
   </div>
 {%endfor%}
 </div>
