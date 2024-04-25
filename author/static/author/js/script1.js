@@ -1,9 +1,9 @@
 var username = document.forms.main.elements.username;
 var password = document.forms.main.elements.password;
-var pattern = /\S+/
+var pattern = /\S+/;
 var form = document.forms.main;
-var button = document.getElementById("b")
-var mas = [false, false]
+var button = document.getElementById("b");
+var mas = [false, false];
 
 password.addEventListener("input", function(e){
   if (pattern.test(password.value)) {

@@ -86,14 +86,30 @@ class GetNewComments(View):
   def post(self, request):
     сomments = Comment.objects.filter(cat=request.POST.get('id_cat')).order_by('-time')
 
-    result = request.POST.get('time').strip()   
+    result = request.POST.get('time').strip()  
 
     mas = Comment.objects.filter(time__gt=parse(result, languages=['ru'])).exclude(time=parse(result, languages=['ru']))
-    print(mas)
-    if len(mas) == 1:
-      mas_json = serializers.serialize('json', mas[1:])
-      return JsonResponse({'message': "0", "mas": mas_json})
-    else:
-      mas_json = serializers.serialize('json', mas[1:])
-      return JsonResponse({'message': "1", "mas": mas_json})
+
+    mas1 = []
+    for comment in mas:
+      time = str(comment.time).strip()
+      date_obj = datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f%z')
+
+      months_ru = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+      date_obj += timedelta(hours=3)
+
+      formatted_date = date_obj.strftime(f"%d {months_ru[date_obj.month - 1]} %Y г. %H:%M")
+      
+      mas1.append({        
+        'text': comment.text,
+        'author': comment.author,
+        'time': formatted_date
+      })          
+      
+    if len(mas) == 1:      
+      return JsonResponse({'message': "0"})
+    else:      
+      return JsonResponse({'message': "1", "mas": mas1[1:]})
 

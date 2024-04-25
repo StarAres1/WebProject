@@ -62,6 +62,7 @@
       <button type="submit">Оставить отзыв</button>
       {{error}}  
     </form>
+    <button id="update" disabled>Новых комментариев нет</button>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {            
@@ -75,7 +76,7 @@
                     // если успешно, то
                     success: function (response) {
                       
-                      var newDiv = $('<div></div>').addClass("comment");
+                      var newDiv = $('<div></div>').addClass("comment1");
                       newDiv.text(response.text + ' ' + response.author);
                       var block_time = $('<div></div>').addClass("time");
                       block_time.text(response.time);
@@ -97,6 +98,8 @@
         })
     </script>
     <script>
+      let comments = [];
+      
       function getCookie(name) {
           var cookieValue = null;
           if (document.cookie && document.cookie !== '') {
@@ -140,17 +143,38 @@
 
               success: function (response) {                  
                   if (response.message == "1"){
-                    const button = document.getElementById("update");
-                    button.textContent = "Посмотреть новый комментарии";
-                    button.disabled = false;
-                    const comments = JSON.parse(response.mas);
-
-                    comments.forEach(comment => {
-                      console.log(comment.fields.author);
-                    });
+                    comments = response.mas; 
+                    if (comments.length != document.querySelectorAll('div.comment1').length){
+                      const button = document.getElementById("update");
+                      button.textContent = "Посмотреть новый комментарий";
+                      button.disabled = false;
+                    }                                                           
                   }
               }});
       }, 10000);
+
+      var button = document.getElementById("update");
+      button.addEventListener("click", function(e){
+        if (button.textContent = "Посмотреть новый комментарий") {
+          var elements = document.querySelectorAll('div.comment1');
+          elements.forEach(function(element) {
+            element.remove();
+          });          
+
+          comments.forEach(comment => {
+            var newDiv = $('<div></div>').addClass("comment");
+            newDiv.text(comment.text + ' ' + comment.author);
+            var block_time = $('<div></div>').addClass("time");
+            block_time.text(comment.time);
+            newDiv.append(block_time);
+            var brr = $('<br>');
+            $('#sect').prepend(newDiv);
+            $('#sect').prepend(brr);              
+          });                
+        }
+        else {          
+        }
+      });
     </script>
   
   {%else%}
@@ -159,7 +183,7 @@
   
 </div>
 
-<button id="update" disabled>Новых комментариев нет</button>
+
 <div class="section_comments" id="sect">
 {% for element in comments%} 
   <br>
