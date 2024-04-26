@@ -2,15 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Cards, Comment
 from .forms import CommentForm
 from django.http import JsonResponse
-
-import json
-from django.http import HttpResponse
 from django.views import View
-from django.template.loader import render_to_string
-
 from datetime import datetime, timedelta
 from dateparser import parse
-from django.core import serializers
 
 
 def index(request):
@@ -80,8 +74,6 @@ def add_comment(request):
 
 
 class GetNewComments(View):
-
-
   
   def post(self, request):
     сomments = Comment.objects.filter(cat=request.POST.get('id_cat')).order_by('-time')
