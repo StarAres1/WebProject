@@ -10,7 +10,7 @@
   <div class="field">
     {% for i in 'x'|rjust:10 %}
       {% for el in cards %}
-
+  
       <div>
         <a href="/description/{{el.id}}">
           <div class="card">
@@ -22,9 +22,9 @@
           </div>
         </a>
       </div>
-
+  
       {%endfor%}    
-    {% endfor %}
-    </div>
+    {% endfor %}     
+  </div>
 {% endblock%}
 

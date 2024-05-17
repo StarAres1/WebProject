@@ -30,7 +30,11 @@
       </div>
 
       <div class="menu_button">
-        <p>О нас</p>
+        <a href="{% url 'feedback' %}">
+          <div class="menu_button">
+            <p>Написать нам</p>
+          </div>
+        </a>
       </div>
       
            
@@ -64,9 +68,14 @@
       </div>
     </nav>
 
+    <div class="field1">
+      {% block content %}      
+      {% endblock%}
 
-    {% block content %}      
-    {% endblock%}
+      {% block comments%}
+      {% endblock%}      
+    </div> 
+
 
     <footer>
       <p>Проект подготовили студенты МИЭТ группы ПИН-24: <br><br>Тетерин Андрей

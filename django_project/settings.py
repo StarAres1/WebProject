@@ -22,6 +22,7 @@ CSRF_TRUSTED_ORIGINS = ["https://*.replit.dev", "https://*.replit.app"]
 INSTALLED_APPS = [
     'main',
     'author',
+    'feedback',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -97,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -124,3 +125,6 @@ LOGOUT_REDIRECT_URL = "/"
 AUTH_USER_MODEL = 'author.User'
 AUTH_PASSWORD_HASHERS = [    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
+
+TELEGRAM_BOT_TOKEN = '7086441619:AAEtL2EScVSnlSRQ-u4WHBbpywl3V47aYpM'
+TELEGRAM_CHAT_ID = '-4144925687'

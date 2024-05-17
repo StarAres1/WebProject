@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
 from author.forms import RegisterForm
-from django.views.generic.edit import FormView
 from django.views import View
-from author.forms import UserCreationForm
 
 def auth(request):  
   form = RegisterForm()

@@ -1,4 +1,5 @@
 {% extends 'main/layout.html' %}
+{% load static %}
 
 {% block content %}      
 <div class="annotation">
@@ -12,36 +13,190 @@
   </div>
 
 </div>
-  <iframe width="560" height="315" src="{{object.video}}" frameborder="0" allowfullscreen></iframe>
-<div>
-
-  <h2>Игры</h2>
-  <ul>
-    <li>fksdfksd</li>
-    <li>dfsdfdsf</li>
-    <li>fsdfsdflskfl</li>
-    <li>sdfakfasfkmskfk</li>
-  </ul>
-  <br>
-
-  <h2>Комиксы</h2>
-  <ul>
-    <li>  fksdfksd</li>
-    <li>dfsdfdsf</li>
-    <li>fsdfsdflskfl</li>
-    <li>sdfakfasfkmskfk</li>
-  </ul>
-  <br>
-
-  <h2>Фильмы</h2>
-  <ul>
-    <li>fksdfksd</li>
-    <li>dfsdfdsf</li>
-    <li>fsdfsdflskfl</li>
-    <li>sdfakfasfkmskfk</li>
-  </ul>
-  <br>
+<div class="title"><h2>Трейлер</h2></div>
+<div class="block-iframe">
 
 </div>
+<div class="title"><h2>Игры</h2></div>
+<div>  
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+</div>
+<div class="title"><h2>Книги и комиксы</h2></div>
+<div>  
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+</div>
+<div class="title"><h2>Фильмы</h2></div>
+<div>  
+  <ul>
+    <li>fksdfksd</li>
+    <li>dfsdfdsf</li>
+    <li>fsdfsdflskfl</li>
+    <li>sdfakfasfkmskfk</li>
+  </ul>
+  <br>
+</div>
 {% endblock%}
+
+{% block comments%}
+<div>
+  {%if user.is_authenticated%}
+    <form class="form_comments" method="post" name="main" id="for_comments">
+      {%csrf_token%}     
+      <br>
+      <input type="hidden" name="author" id="name" value="{{user}}">
+      <input type="hidden" name="cat" id ="cat" value="{{ object.id }}">
+      <textarea class="line_form" name="text" cols="100" rows="10" placeholder="Ваш комментарий" id="text_ar"></textarea>
+      <br>
+      <button type="submit">Оставить отзыв</button>
+      {{error}}  
+    </form>
+    <button id="update" disabled>Новых комментариев нет</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {            
+            // отслеживаем событие отправки формы
+            $('#for_comments').submit(function () {
+                // создаем AJAX-вызов
+                $.ajax({                    
+                    data: $(this).serialize(), // получаем данные формы
+                    type: $(this).attr('method'), // GET или POST
+                    url: "{% url 'add_comment' %}",                    
+                    // если успешно, то
+                    success: function (response) {
+                      
+                      var newDiv = $('<div></div>').addClass("comment1");
+                      newDiv.text(response.text + ' ' + response.author);
+                      var block_time = $('<div></div>').addClass("time");
+                      block_time.text(response.time);
+                      newDiv.append(block_time);
+                      var brr = $('<br>');                      
+                      $('#sect').prepend(newDiv);
+                      $('#sect').prepend(brr);
+                      $('#text_ar').val("");
+                    },
+                    // если ошибка, то
+                    error: function (response) {                        
+                        // предупредим об ошибке
+                        alert(response.responseJSON.errors);
+                        console.log(response.responseJSON.errors)
+                    }
+                });
+                return false;
+            });
+        })
+    </script>
+    <script>
+      let comments = [];
+      
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      function csrfSafeMethod(method) {
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+              }
+          }
+      });
+      
+      setInterval(function () {
+        const times = document.querySelectorAll('.section_comments .comment .time');
+        
+        var time = "";
+        for (const el of times) {
+          if (el.textContent != "Только что"){
+            var time = el.textContent;
+            break;
+          };
+          
+        }
+          $.ajax({
+              url: "{%url 'get_new_comments'%}",
+              type: 'POST',
+              data: {'time': time, 'id_cat': document.getElementById("cat").value},
+
+              success: function (response) {                  
+                  if (response.message == "1"){
+                    comments = response.mas; 
+                    if (comments.length != document.querySelectorAll('div.comment1').length){
+                      const button = document.getElementById("update");
+                      button.textContent = "Посмотреть новый комментарий";
+                      button.disabled = false;
+                    }                                                           
+                  }
+              }});
+      }, 10000);
+
+      var button = document.getElementById("update");
+      button.addEventListener("click", function(e){
+        if (button.textContent = "Посмотреть новый комментарий") {
+          var elements = document.querySelectorAll('div.comment1');
+          elements.forEach(function(element) {
+            element.remove();
+          });          
+
+          comments.forEach(comment => {
+            var newDiv = $('<div></div>').addClass("comment");
+            newDiv.text(comment.text + ' ' + comment.author);
+            var block_time = $('<div></div>').addClass("time");
+            block_time.text(comment.time);
+            newDiv.append(block_time);
+            var brr = $('<br>');
+            $('#sect').prepend(newDiv);
+            $('#sect').prepend(brr);              
+          });                
+        }
+        else {          
+        }
+      });
+    </script>
+  
+  {%else%}
+    <span>Чтобы оставлять отзывы необходимо авторизоваться</span>
+  {%endif%}  
+  
+</div>
+
+
+<div class="section_comments" id="sect">
+{% for element in comments%} 
+  <br>
+  <div class="comment">
+    {{element.text}}
+    {{element.author}}
+    <div class="time">
+      {{element.time}}
+    </div>    
+  </div>
+{%endfor%}
+</div>
+  
+{% endblock%}
+
 

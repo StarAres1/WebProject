@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{%static 'author/css/styles3.css'%}">
+    <title>auto</title>
+  </head>
+  <body>
+
+    <div class="forma">
+      <form method="post" name="main">
+        {%csrf_token%}
+        <h1>Форма обратной связи</h1>
+        <div>{{error}}</div>       
+
+        <div>
+          <input type="hidden" name="nick_name" value={{user}}>  
+        </div>
+        <div>
+          <input type="text" name="title" placeholder="Тема обращения">  
+        </div>                     
+        <br>        
+        <textarea type="text" name="text" value="" placeholder="Введите ваше обращение" cols="60" rows="20" style="resize: none;""></textarea>      
+        <br>
+
+        <button type="submit" name="button" id="b"><span>Отправить</span></button> 
+        <br>
+        <a href="{%url 'home'%}">На главную</a>        
+
+      </form>
+    </div>
+
+  </body>
+</html>
